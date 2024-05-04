@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('SCM checkout') {
+            steps {
+                echo 'from git SCM'
+                echo 'hi in scm stage'
+                git 'https://github.com/abdo111-ui/express_nodejs.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'here build'
+                sh 'docker build -t fromdeclaritive .'
+            }
+        }
+        stage('testing') {
+            steps {
+                echo 'hi in test stage'
+                sh 'docker rm bold_wilbur -f'
+                sh 'docker run --name fromdeclaritive -d -p 5555:3000 fromdeclaritive'
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'hi in deploy stage'
+                sh 'docker rm fromdeclaritive -f'
+                
+            }
+        }
+    }
+}
