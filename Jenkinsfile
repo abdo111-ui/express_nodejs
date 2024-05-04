@@ -4,7 +4,6 @@ pipeline {
     stage('SCM checkout') {
       steps {
         echo 'hi in scm stage'
-        git(url: 'https://github.com/abdo111-ui/express_nodejs.git', branch: 'main')
       }
     }
 
